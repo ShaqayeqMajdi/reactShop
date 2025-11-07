@@ -1,4 +1,16 @@
+import { useEffect, useState } from "react";
+import api from "../configs/api";
+
 export default function Header() {
+  const [categories, setCategories] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    api.get("products/categories")
+      .then((response) => setCategories(response.data))
+      .catch((error) => setError("Failed to load categories!"));
+  }, []);
+
   return (
     <>
       <div className="bg-black p-2 text-white text-center font-Quicksand">
@@ -21,26 +33,41 @@ export default function Header() {
 
           <img src="/images/header/logo.png" alt="logo" className="md:w-36 w-28"/>
           <ul className="hidden md:flex items-center gap-4 whitespace-nowrap text-black font-medium">
-            <li className="relative group flex items-center gap-1 cursor-pointer hover:text-neutral-600">
-              Shop
+            <li className="relative group flex items-center gap-1 cursor-pointer hover:text-neutral-600">Shop
               <span className="absolute left-0 -bottom-1 h-px w-0 transition-all duration-500 ease-out group-hover:w-full bg-neutral-600"></span>
               <img src="/icons/chevron-down.svg" alt="down-icon" className="w-4 h-4"/>
               {/*Dropdown for Categories */}
               <div className="absolute top-full -left-5 mt-2 w-56 bg-white/95 backdrop-blur-sm border border-gray-100 shadow-md rounded-2xl p-3 flex flex-col
                gap-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible translate-y-3 group-hover:translate-y-0 transition-all duration-300 ease-out z-50">
-                <nav></nav>
+                {error ? (
+                  <div className="flex items-start gap-3 bg-red-50 border border-red-200 text-red-700 px-3 py-2 rounded-lg shadow-inner">
+                    <div className="font-bold text-sm text-red-600">
+                      {error}
+                    </div>
+                  </div>
+                ) : (
+                  <nav className="flex flex-col divide-y divide-gray-100 space-y-1">
+                    {categories.map((cat) => (
+                      <a href="#"
+                        className="flex items-center justify-between text-gray-800 font-Quicksand text-[15px] font-medium capitalize 
+                        px-3 py-2 rounded-lg transition-all duration-500 hover:bg-gray-50">
+                        {cat}
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 opacity-70 flex-none" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                          <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"/>
+                        </svg>
+                      </a>
+                    ))}
+                  </nav>
+                )}
               </div>
             </li>
-            <li className="cursor-pointer relative group hover:text-neutral-600">
-              on sale
+            <li className="cursor-pointer relative group hover:text-neutral-600">on sale
               <span className="absolute left-0 -bottom-1 h-px w-0 transition-all duration-500 ease-out group-hover:w-full bg-neutral-600"></span>
             </li>
-            <li className="cursor-pointer relative group hover:text-neutral-600">
-              new arrivals
+            <li className="cursor-pointer relative group hover:text-neutral-600">new arrivals
               <span className="absolute left-0 -bottom-1 h-px w-0 transition-all duration-500 ease-out group-hover:w-full bg-neutral-600"></span>
             </li>
-            <li className="cursor-pointer relative group hover:text-neutral-600">
-              brands
+            <li className="cursor-pointer relative group hover:text-neutral-600">brands
               <span className="absolute left-0 -bottom-1 h-px w-0 transition-all duration-500 ease-out group-hover:w-full bg-neutral-600"></span>
             </li>
           </ul>
