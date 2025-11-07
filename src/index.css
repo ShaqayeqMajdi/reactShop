@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+@theme {
+  --font-Quicksand: "Quicksand", sans-serif;
+  --font-Inter: "Inter", sans-serif;
+
+  --color-Cultured: #f2f0f1;
+
+  --animate-scroll: scroll 8s linear infinite;
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-40%);
+    }
+  }
+}
