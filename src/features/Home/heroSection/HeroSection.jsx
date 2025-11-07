@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 export default function HeroSection() {
+  const navigate = useNavigate()
   return (
     <section className="w-full bg-Cultured h-fit">
       <div className="max-w-7xl mx-auto flex flex-col  items-center justify-between p-10 lg:px-20 py-8">
@@ -14,7 +17,8 @@ export default function HeroSection() {
             designed to bring out your individuality and cater to your sense of
             style.
           </p>
-          <button className="bg-black text-white px-14 py-3 mt-6 rounded-full text-base hover:scale-105 transition duration-700 cursor-pointer">
+          <button onClick={()=> navigate("/allProducts")}
+          className="bg-black text-white px-14 py-3 mt-6 rounded-full text-base hover:scale-105 transition duration-700 cursor-pointer">
             Shop Now
           </button>
 

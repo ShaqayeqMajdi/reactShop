@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 export default function BrandIntro() {
+  const navigate = useNavigate()
   return (
     <section className="w-full bg-white py-10 px-8 mt-18 md:px-12 font-Quicksand">
       <div className="container mx-auto flex flex-col md:flex-row items-center md:items-start">
@@ -21,7 +24,8 @@ export default function BrandIntro() {
           </p>
 
           <div className="mt-6">
-            <button className="inline-block bg-black/90 cursor-pointer text-white rounded-lg px-6 py-3 
+            <button onClick={()=> navigate("/allProducts")}
+            className="inline-block bg-black/90 cursor-pointer text-white rounded-lg px-6 py-3 
             text-sm md:text-base shadow-md hover:translate-y-px transition-transform">
               View More
             </button>

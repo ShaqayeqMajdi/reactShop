@@ -1,5 +1,5 @@
 import { Box, Button, Card, Typography } from "@mui/material";
-export default function ProductsCard() {
+export default function ProductsCard({title, image, price, category,rating,}) {
   return (
     <Card
       sx={{
@@ -44,8 +44,8 @@ export default function ProductsCard() {
         }}
       >
         <img
-          src=""
-          alt=""
+          src={image}
+          alt={title}
           style={{
             maxWidth: "100%",
             maxHeight: "100%",
@@ -66,7 +66,7 @@ export default function ProductsCard() {
           fontFamily: "Quicksand, sans-serif",
         }}
       >
-        category
+        {category}
       </Typography>
 
       {/* Title */}
@@ -81,13 +81,13 @@ export default function ProductsCard() {
           fontFamily: "Inter, sans-serif",
         }}
       >
-        title
+        {title}
       </Typography>
 
       {/* Rating */}
       <Box display="flex" alignItems="center" gap={1} mb={1}>
         <img
-          src="./images/rating.png"
+          src="./images/shared/rating.png"
           alt="rating"
           style={{ width: "70px", opacity: 0.9 }}
         />
@@ -95,8 +95,10 @@ export default function ProductsCard() {
           variant="caption"
           fontFamily="Quicksand, sans-serif"
           color="text.secondary"
+          fontWeight={500}
         >
-          rating
+          {rating?.rate}/5
+          <span style={{ opacity: 0.8, marginLeft: 3}}>({rating?.count})</span>
         </Typography>
 
         {/* <Divider sx={{ width: "80%", my: 1 }} /> */}
@@ -114,7 +116,7 @@ export default function ProductsCard() {
           fontWeight="bold"
           color="#111  "
         >
-          $
+          ${price}
         </Typography>
 
         <Button
