@@ -1,5 +1,14 @@
-import { Box, Button, Card, Typography } from "@mui/material";
-export default function ProductsCard({title, image, price, category,rating,}) {
+import { Box, Button, Card, Rating, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+export default function ProductsCard({
+  id,
+  title,
+  image,
+  price,
+  category,
+  rating,
+}) {
+  const navigate = useNavigate();
   return (
     <Card
       sx={{
@@ -86,20 +95,27 @@ export default function ProductsCard({title, image, price, category,rating,}) {
 
       {/* Rating */}
       <Box display="flex" alignItems="center" gap={1} mb={1}>
-        <img
-          src="./images/shared/rating.png"
-          alt="rating"
-          style={{ width: "70px", opacity: 0.9 }}
-        />
-        <Typography
-          variant="caption"
-          fontFamily="Quicksand, sans-serif"
-          color="text.secondary"
-          fontWeight={500}
-        >
-          {rating?.rate}/5
-          <span style={{ opacity: 0.8, marginLeft: 3}}>({rating?.count})</span>
-        </Typography>
+        <div className="flex items-center gap-2 mb-4">
+          <Rating
+            name="product-rating"
+            value={rating?.rate}
+            precision={0.5}
+            readOnly
+            size="small"
+          />
+          <Typography
+            variant="body2"
+            fontFamily="Quicksand, sans-serif"
+            color="text.secondary"
+            fontWeight={500}
+            fontSize={12}
+          >
+            {rating?.rate}/5
+            <span style={{ opacity: 0.8, marginLeft: 3 }}>
+              ({rating?.count})
+            </span>
+          </Typography>
+        </div>
 
         {/* <Divider sx={{ width: "80%", my: 1 }} /> */}
       </Box>
@@ -120,6 +136,7 @@ export default function ProductsCard({title, image, price, category,rating,}) {
         </Typography>
 
         <Button
+          onClick={() => navigate(`/products/${id}`)}
           sx={{
             fontWeight: 900,
             px: 2.5,
