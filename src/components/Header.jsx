@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import api from "../configs/api";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
+  const navigate = useNavigate()
 
   useEffect(() => {
     api.get("products/categories")
@@ -11,6 +13,20 @@ export default function Header() {
       .catch((error) => setError("Failed to load categories!"));
   }, []);
 
+  const categoryPath = (cat) => {
+    switch (cat) {
+      case "men's clothing":
+        return "men";
+      case "women's clothing":
+        return "women";
+      case "jewelery":
+        return "jewelry";
+      case "electronics":
+        return "electronics";
+      default:
+        return cat;
+    }
+  };
   return (
     <>
       <div className="bg-black p-2 text-white text-center font-Quicksand">
@@ -31,7 +47,7 @@ export default function Header() {
             <img className="w-7 h-7 md:hidden cursor-pointer" src="/icons/menu.svg" alt="mobile-menu"/>
           </button>
 
-          <img src="/images/header/logo.png" alt="logo" className="md:w-36 w-28"/>
+          <img src="/images/header/logo.png" alt="logo" onClick={() => navigate("/")} className="md:w-36 w-28"/>
           <ul className="hidden md:flex items-center gap-4 whitespace-nowrap text-black font-medium">
             <li className="relative group flex items-center gap-1 cursor-pointer hover:text-neutral-600">Shop
               <span className="absolute left-0 -bottom-1 h-px w-0 transition-all duration-500 ease-out group-hover:w-full bg-neutral-600"></span>
@@ -47,8 +63,8 @@ export default function Header() {
                   </div>
                 ) : (
                   <nav className="flex flex-col divide-y divide-gray-100 space-y-1">
-                    {categories.map((cat) => (
-                      <a href="#"
+                      {categories?.map((cat) => (
+                      <a href={`/${categoryPath(cat)}`}
                         className="flex items-center justify-between text-gray-800 font-Quicksand text-[15px] font-medium capitalize 
                         px-3 py-2 rounded-lg transition-all duration-500 hover:bg-gray-50">
                         {cat}
