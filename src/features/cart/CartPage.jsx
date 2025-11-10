@@ -1,10 +1,19 @@
+// import { useContext } from "react";
+// import { CartContext } from "../../App";
 import { useNavigate } from "react-router-dom";
+import useCartStore from "../../store/useCartStore";
+// import { actionTypes } from "../../reducers/cartReducer";
+// import { actionTypes } from "../../reducers/cartReducer";
 
-export default function CartPage(){
-    const navigate = useNavigate()
-     return (
+export default function CartPage() {
+  // const { cart, cartDispatch } = useContext(CartContext);
+  const { cart, addToCart, removeFromCart, deleteItemFromCart } = useCartStore();
+  const navigate = useNavigate();
+  return (
     <div className="bg-white min-h-screen px-4 py-8 flex flex-col gap-6 md:flex-row md:items-start md:justify-center md:gap-8 font-Quicksand">
+      {/* Cart Section */}
       <div className="w-full max-w-3xl bg-white rounded-2xl p-4 md:p-6 border border-gray-200">
+        {cart.length === 0 ? (
           <div className="flex flex-col items-center justify-center text-center text-gray-500">
             <img src="/images/emptyCart.jpg" alt="Empty cart" className="w-72 h-72 mb-6 object-contain opacity-80"/>
             <h2 className="text-xl font-semibold text-gray-700">
@@ -15,6 +24,37 @@ export default function CartPage(){
               continue shopping
             </button>
           </div>
+        ) : (
+          cart.map((item) => (
+            <div key={item.id}
+              className="flex items-center justify-between py-4 border-b-2 border-gray-100 last:border-none">
+              <div className="flex items-center gap-4">
+                <img src={item.image} alt={item.title} className="w-30 h-30 rounded-lg object-contain bg-gray-50 p-2"/>
+                <div>
+                  <h3 className="font-bold text-sm sm:line-clamp-1 md:text-xl">{item.title}</h3>
+                  <p className="text-base text-gray-600">{item.category}</p>
+                  <p className="text-lg font-semibold mt-1">${item.price}</p>
+                </div>
+              </div>
+
+              <div className="flex flex-col items-end gap-4">
+                <button onClick={() => deleteItemFromCart(item.id)}>
+                  <img src="/icons/trash.svg" alt="delete" className="w-5 h-5 cursor-pointer"/>
+                </button>
+
+                <div className="flex items-center bg-gray-100 rounded-2xl px-4 py-2">
+                  <button onClick={() => removeFromCart(item.id)} className="cursor-pointer">
+                    −
+                  </button>
+                  <span className="px-4">{item.quantity}</span>
+                  <button onClick={() => addToCart(item)} className="cursor-pointer">
+                    +
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))
+        )}
       </div>
 
       {/* Order Summary */}
@@ -37,7 +77,7 @@ export default function CartPage(){
 
         <div className="flex justify-between items-center mb-4">
           <span className="font-medium text-lg">Total</span>
-          <span className="text-xl font-extrabold">$</span>
+          <span className="text-xl font-extrabold">$467</span>
         </div>
 
         {/* Promo code & Apply button */}

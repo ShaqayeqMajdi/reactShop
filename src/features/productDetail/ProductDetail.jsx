@@ -5,9 +5,15 @@ import Loading from "../../shared/loading/Loading";
 import Error from "../../shared/error/Error";
 import { useState } from "react";
 import { Tabs, Tab, Box, Rating } from "@mui/material";
+// import { useContext } from "react";
+// import { CartContext } from "../../App";
+// import { actionTypes } from "../../reducers/cartReducer";
+import useCartStore from "../../store/useCartStore";
 
 export default function ProductDetail() {
   const { productId } = useParams();
+  const { cart, addToCart, removeFromCart } = useCartStore();
+
   const [value, setValue] = useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -82,7 +88,9 @@ export default function ProductDetail() {
             <div className="border border-Cultured my-4"></div>
 
             <div>
-              <p className="text-sm font-medium mb-2 text-gray-500">Select Colors</p>
+              <p className="text-sm font-medium mb-2 text-gray-500">
+                Select Colors
+              </p>
               <div className="flex gap-3">
                 <button className="w-7 h-7 rounded-full bg-[#4F4631] cursor-pointer hover:border hover:border-gray-100"></button>
                 <button className="w-7 h-7 rounded-full bg-[#314F4A] cursor-pointer hover:border hover:border-gray-100"></button>
@@ -115,43 +123,64 @@ export default function ProductDetail() {
             <div className="border border-Cultured my-4"></div>
 
             <div className="flex items-center justify-start mb-4 font-semibold text-gray-600">
-              <p>Available in store<i className="fa-solid fa-check text-green-600 ml-2"></i></p>
+              <p>
+                Available in store
+                <i className="fa-solid fa-check text-green-600 ml-2"></i>
+              </p>
             </div>
 
             <div className="flex items-center gap-4">
               <div className="flex items-center bg-Cultured rounded-full">
-                <button className="px-4 py-2 text-lg cursor-pointer">
+                <button onClick={() => removeFromCart(data.id)}
+                  className="px-4 py-2 text-lg cursor-pointer">
                   −
                 </button>
 
-                <span className="px-4">0</span>
+                <span className="px-4">
+                  {cart.find((item) => item.id === data.id)?.quantity || 0}
+                </span>
 
-                <button className="px-4 py-2 text-lg cursor-pointer">+</button>
+                <button onClick={() => addToCart(data)}
+                  className="px-4 py-2 text-lg cursor-pointer">
+                  +
+                </button>
               </div>
 
-              <button className="flex-1 py-3 rounded-full font-semibold cursor-pointer bg-black text-white">
-                Add to Cart
-              </button>
+              {cart.some((item) => item.id === data.id) ? (
+                <button className="flex-1 py-3 rounded-full font-semibold cursor-pointer bg-Cultured text-gray-600">
+                  Added
+                </button>
+              ) : (
+                <button onClick={() => addToCart(data)}
+                  className="flex-1 py-3 rounded-full font-semibold cursor-pointer bg-black text-white">
+                  Add to Cart
+                </button>
+              )}
             </div>
           </div>
         </div>
-        
+
         <div className="mt-12">
           <Box className="border-b border-gray-200 flex justify-center">
-            <Tabs value={value} onChange={handleChange} textColor="inherit" TabIndicatorProps={{ style: { backgroundColor: "black" } }} className="text-lg font-medium">
-              <Tab label="Product Details" className={
+            <Tabs  value={value}  onChange={handleChange}  textColor="inherit" 
+            TabIndicatorProps={{ style: { backgroundColor: "black" } }} className="text-lg font-medium">
+              <Tab  label="Product Details"  className={
                   value === 0
                     ? "pb-3 border-b-2 border-black"
                     : "pb-3 text-gray-500"
                 }
               />
-              <Tab label="Rating & Reviews" className={
+              <Tab
+                label="Rating & Reviews"
+                className={
                   value === 1
                     ? "pb-3 border-b-2 border-black"
                     : "pb-3 text-gray-500"
                 }
               />
-              <Tab label="FAQs" className={
+              <Tab
+                label="FAQs"
+                className={
                   value === 2
                     ? "pb-3 border-b-2 border-black"
                     : "pb-3 text-gray-500"
@@ -182,7 +211,7 @@ export default function ProductDetail() {
                       date: "Posted on August 15, 2023",
                     },
                   ].map((review) => (
-                    <div  className="bg-white rounded-xl border border-gray-200 p-6">
+                    <div className="bg-white rounded-xl border border-gray-200 p-6">
                       <img src="/images/shared/rating.png" alt="rating" className="h-4 mb-2"/>
                       <h3 className="font-semibold text-lg mb-2 flex items-center gap-1">
                         {review.name}
