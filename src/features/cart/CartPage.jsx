@@ -7,10 +7,17 @@ import useCartStore from "../../store/useCartStore";
 
 export default function CartPage() {
   // const { cart, cartDispatch } = useContext(CartContext);
-  const { cart, addToCart, removeFromCart, deleteItemFromCart } = useCartStore();
+  const { cart, addToCart, removeFromCart, deleteItemFromCart } =useCartStore();
+
+  let total = 0;
+  cart.forEach((item) => {
+    total += item.price * item.quantity;
+  });
+
   const navigate = useNavigate();
   return (
     <div className="bg-white min-h-screen px-4 py-8 flex flex-col gap-6 md:flex-row md:items-start md:justify-center md:gap-8 font-Quicksand">
+
       {/* Cart Section */}
       <div className="w-full max-w-3xl bg-white rounded-2xl p-4 md:p-6 border border-gray-200">
         {cart.length === 0 ? (
@@ -58,15 +65,18 @@ export default function CartPage() {
       </div>
 
       {/* Order Summary */}
+
       <div className="w-full md:w-[410px] bg-white rounded-2xl border border-gray-200 p-4 md:p-6">
         <h3 className="text-xl font-bold mb-4">Order Summary</h3>
         <div className="flex justify-between text-gray-700 mb-2">
           <span>Subtotal</span>
-          <span className="font-semibold text-black">$565</span>
+          <span className="font-semibold text-black">${total}</span>
         </div>
         <div className="flex justify-between text-gray-700 mb-2">
           <span>Discount (-20%)</span>
-          <span className="font-semibold text-red-500">-$113</span>
+          <span className="font-semibold text-red-500">
+            -${(total * 0.2).toFixed(2)}
+          </span>
         </div>
         <div className="flex justify-between text-gray-700 mb-4">
           <span>Delivery Fee</span>
@@ -77,7 +87,9 @@ export default function CartPage() {
 
         <div className="flex justify-between items-center mb-4">
           <span className="font-medium text-lg">Total</span>
-          <span className="text-xl font-extrabold">$467</span>
+          <span className="text-xl font-extrabold">
+            ${(total * 0.8 + 15).toFixed(2)}
+          </span>
         </div>
 
         {/* Promo code & Apply button */}
