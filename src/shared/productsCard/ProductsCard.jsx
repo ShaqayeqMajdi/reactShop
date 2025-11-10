@@ -10,7 +10,7 @@ export default function ProductsCard({
 }) {
   const navigate = useNavigate();
   return (
-    <Card
+    <Card onClick={() => navigate(`/products/${id}`)}
       sx={{
         width: "100%",
         maxWidth: "300px",

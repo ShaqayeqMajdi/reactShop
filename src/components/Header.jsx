@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function Header() {
   const [categories, setCategories] = useState([]);
   const [error, setError] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -43,7 +44,7 @@ export default function Header() {
       <nav className="flex justify-between items-center px-4 py-6 font-Quicksand container mx-auto">
         {/* Left Side: Logo + Menu */}
         <div className="flex items-center gap-4">
-          <button>
+          <button onClick={() => setMenuOpen(true)}>
             <img className="w-7 h-7 md:hidden cursor-pointer" src="/icons/menu.svg" alt="mobile-menu"/>
           </button>
 
@@ -77,17 +78,75 @@ export default function Header() {
                 )}
               </div>
             </li>
-            <li className="cursor-pointer relative group hover:text-neutral-600">on sale
+            <li onClick={() => navigate("/allproducts")} className="cursor-pointer relative group hover:text-neutral-600">Products
               <span className="absolute left-0 -bottom-1 h-px w-0 transition-all duration-500 ease-out group-hover:w-full bg-neutral-600"></span>
             </li>
-            <li className="cursor-pointer relative group hover:text-neutral-600">new arrivals
+            <li className="cursor-pointer relative group hover:text-neutral-600">New arrivals
               <span className="absolute left-0 -bottom-1 h-px w-0 transition-all duration-500 ease-out group-hover:w-full bg-neutral-600"></span>
             </li>
-            <li className="cursor-pointer relative group hover:text-neutral-600">brands
+            <li className="cursor-pointer relative group hover:text-neutral-600">Brands
               <span className="absolute left-0 -bottom-1 h-px w-0 transition-all duration-500 ease-out group-hover:w-full bg-neutral-600"></span>
             </li>
           </ul>
         </div>
+
+          {/* Mobile Menu */}
+  <div
+  className={`md:hidden fixed top-0 left-0 h-full w-72 bg-white shadow-2xl flex flex-col z-50 p-6 transition-transform duration-500 ease-in-out rounded-r-3xl overflow-hidden
+    ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
+>
+  <div className="flex justify-between items-center mb-8">
+    <img src="/images/header/logo.png" alt="logo" className="w-40" />
+    <button
+      onClick={() => setMenuOpen(false)}
+      className="p-3 rounded-xl bg-Cultured/50 hover:bg-Cultured transition duration-300 group"
+    >
+      <img
+        className="w-6 h-6 filter grayscale group-hover:grayscale-0 transition"
+        src="/icons/close-black.svg"
+        alt="close-menu"
+      />
+    </button>
+  </div>
+  <nav className="space-y-1 font-Quicksand font-semibold text-gray-700">
+    
+    <div className="group flex items-center justify-between p-4 rounded-2xl hover:bg-Cultured transition-all duration-300 cursor-pointer border-b border-gray-100">
+      <div className="flex items-center gap-3">
+        <div className="w-2 h-2 bg-linear-to-r from-gray-400 to-gray-600 rounded-full group-hover:from-gray-400 group-hover:to-neutral-400 transition-all duration-300"></div>
+        <span className="text-lg group-hover:text-gray-900 transition">Shop</span>
+      </div>
+      <i className="fa-solid fa-chevron-right text-xs text-gray-400 opacity-0 group-hover:opacity-100 group-hover:text-gray-600 transition-all duration-300"></i>
+    </div>
+
+    <div className="group flex items-center justify-between p-4 rounded-2xl hover:bg-Cultured transition-all duration-300 cursor-pointer border-b border-gray-100">
+      <div className="flex items-center gap-3">
+        <div className="w-2 h-2 bg-linear-to-r from-gray-400 to-gray-600 rounded-full group-hover:from-gray-400 group-hover:to-neutral-400 transition-all duration-300"></div>
+        <span className="text-lg group-hover:text-gray-900 transition">On Sale</span>
+      </div>
+      <i className="fa-solid fa-chevron-right text-xs text-gray-400 opacity-0 group-hover:opacity-100 group-hover:text-gray-600 transition-all duration-300"></i>
+    </div>
+
+
+    <div className="group flex items-center justify-between p-4 rounded-2xl hover:bg-Cultured transition-all duration-300 cursor-pointer border-b border-gray-100">
+      <div className="flex items-center gap-3">
+        <div className="w-2 h-2 bg-linear-to-r from-gray-400 to-gray-600 rounded-full group-hover:from-gray-400 group-hover:to-neutral-400 transition-all duration-300"></div>
+        <span className="text-lg group-hover:text-gray-900 transition">New Arrivals</span>
+      </div>
+      <i className="fa-solid fa-chevron-right text-xs text-gray-400 opacity-0 group-hover:opacity-100 group-hover:text-gray-600 transition-all duration-300"></i>
+    </div>
+
+
+    <div className="group flex items-center justify-between p-4 rounded-2xl hover:bg-Cultured transition-all duration-300 cursor-pointer border-b border-gray-100">
+      <div className="flex items-center gap-3">
+        <div className="w-2 h-2 bg-linear-to-r from-gray-400 to-gray-600 rounded-full group-hover:from-gray-400 group-hover:to-neutral-400 transition-all duration-300"></div>
+        <span className="text-lg group-hover:text-gray-900 transition">Brands</span>
+      </div>
+      <i className="fa-solid fa-chevron-right text-xs text-gray-400 opacity-0 group-hover:opacity-100 group-hover:text-gray-600 transition-all duration-300"></i>
+    </div>
+
+  </nav>
+
+</div>
 
         {/* Right Side: Search, Cart, Profile */}
         <div className="flex items-center gap-4">
@@ -99,7 +158,7 @@ export default function Header() {
             <img src="/icons/mobile-search.svg" alt="search" className="w-6 h-6 ml-4 cursor-pointer"/>
           </button>
 
-          <button>
+          <button onClick={() => navigate("/cart")}>  
             <img src="/icons/cart.svg" alt="cart" className="w-6 h-6 cursor-pointer"/>
           </button>
 

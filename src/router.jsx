@@ -7,6 +7,7 @@ import MenPage from "./features/Home/pages/MenPage";
 import WomenPage from "./features/Home/pages/WomenPage";
 import Jewelry from "./features/Home/pages/Jewelry";
 import Electronics from "./features/Home/pages/Electronics";
+import CartPage from "./features/cart/CartPage";
 // import useCategories from "./hooks/useCategories";
 // const categories = useCategories()
 
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
       {
         path: "products/:productId",
         element: <ProductDetail />,
+      },
+      {
+        path: "cart",
+        element: <CartPage />,
       },
       //   ...categories.map(cat => ({
       //    path: cat,

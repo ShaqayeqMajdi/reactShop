@@ -135,7 +135,7 @@ export default function ProductDetail() {
             </div>
           </div>
         </div>
-
+        
         <div className="mt-12">
           <Box className="border-b border-gray-200 flex justify-center">
             <Tabs value={value} onChange={handleChange} textColor="inherit" TabIndicatorProps={{ style: { backgroundColor: "black" } }} className="text-lg font-medium">

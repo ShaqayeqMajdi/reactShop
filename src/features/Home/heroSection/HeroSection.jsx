@@ -18,7 +18,7 @@ export default function HeroSection() {
             style.
           </p>
           <button onClick={()=> navigate("/allProducts")}
-          className="bg-black text-white px-14 py-3 mt-6 rounded-full text-base hover:scale-105 transition duration-700 cursor-pointer">
+          className="bg-black text-white px-10 py-3 mt-6 rounded-full text-base font-medium font-Quicksand hover:scale-105 transition duration-700 cursor-pointer">
             Shop Now
           </button>
 
