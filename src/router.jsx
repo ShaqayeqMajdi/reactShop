@@ -9,6 +9,7 @@ import Jewelry from "./features/Home/pages/Jewelry";
 import Electronics from "./features/Home/pages/Electronics";
 import CartPage from "./features/cart/CartPage";
 import AboutPage from "./features/aboutPage/AboutPage";
+import LoginPage from "./features/loginPage/LoginPage";
 // import useCategories from "./hooks/useCategories";
 // const categories = useCategories()
 
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "about",
         element: <AboutPage />,
+      },
+      {
+        path: "login",
+        element: <LoginPage />,
       },
       //   ...categories.map(cat => ({
       //    path: cat,
