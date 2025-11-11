@@ -10,6 +10,7 @@ import Electronics from "./features/Home/pages/Electronics";
 import CartPage from "./features/cart/CartPage";
 import AboutPage from "./features/aboutPage/AboutPage";
 import LoginPage from "./features/loginPage/LoginPage";
+import AdminPage from "./features/admin/AdminPage";
 // import useCategories from "./hooks/useCategories";
 // const categories = useCategories()
 
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginPage />,
+      },
+      {
+        path: "admin",
+        element: <AdminPage />,
       },
       //   ...categories.map(cat => ({
       //    path: cat,

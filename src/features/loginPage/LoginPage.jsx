@@ -15,7 +15,7 @@ export default function LoginPage() {
       { username, password },
       {
         onSuccess: () => {
-          navigate("/");
+          navigate("/admin");
         },
         onError: (err) => {
           setErrorMessage(err.response?.data?.message || "Login failed!");
