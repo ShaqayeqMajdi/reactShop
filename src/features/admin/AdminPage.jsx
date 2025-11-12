@@ -7,14 +7,18 @@ import DeleteModal from "./components/DeleteModal";
 import { useForm } from "react-hook-form";
 import useEditProduct from "../../hooks/useEditProduct";
 import EditModal from "./components/EditModal";
+import AddProductModal from "./components/AddProductModal";
+import useAddProduct from "../../hooks/useAddProduct";
 
 export default function AdminPage() {
   const { data, isLoading, isError } = useGetProducts();
   const { mutateAsync } = useDeleteProduct();
+  const { mutateAsync: addProduct } = useAddProduct();
   const { mutateAsync: editProduct } = useEditProduct();
   const [menuOpen, setMenuOpen] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
+  const [addModal, setAddModal] = useState(false);
 
   const { register, handleSubmit, reset } = useForm({
     defaultValues: {
@@ -28,7 +32,7 @@ export default function AdminPage() {
     reset({
       id: product.id, title: product.title,
       description: product.description, image: product.image,
-      price: product.price, category: product.category,
+      price: product.price,category: product.category,
     });
     setEditModal(true);
   }
@@ -41,6 +45,13 @@ export default function AdminPage() {
 
   async function deleteItem(product) {
     await mutateAsync(product.id);
+  }
+
+  function addSubmit(formData) {
+    addProduct(formData);
+    console.log(formData);
+    reset();
+    setAddModal(false);
   }
 
   return (
@@ -116,17 +127,21 @@ export default function AdminPage() {
 
       <main className="flex-1 p-4 sm:p-8">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-6">
-          <h2 className="text-gray-700 text-3xl font-bold mb-3"> Product Management</h2>
-          <button onClick={() => {}} className="px-4 py-2 bg-gray-200 text-gray-600 font-semibold rounded-xl shadow-md hover:shadow-gray-500/50
+          <h2 className="text-gray-700 text-3xl font-bold mb-3">Product Management</h2>
+          <button onClick={() => setAddModal(true)} className="px-4 py-2 bg-gray-200 text-gray-600 font-semibold rounded-xl shadow-md hover:shadow-gray-500/50
             transition transform hover:-translate-y-0.5 cursor-pointer text-sm sm:text-base">
             + Add New Product
           </button>
         </div>
 
+        <AddProductModal open={addModal}
+          onClose={() => setAddModal(false)} register={register}
+          handleSubmit={handleSubmit} onSubmit={addSubmit}/>
+
         {deleteModal && (<DeleteModal closeModal={() => setDeleteModal(false)} />)}
 
-        <EditModal editModal={editModal} 
-        setEditModal={setEditModal} register={register} 
+        <EditModal editModal={editModal}
+          setEditModal={setEditModal} register={register}
           handleSubmit={handleSubmit} editSubmit={editSubmit}/>
 
         <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-x-auto">
@@ -146,15 +161,11 @@ export default function AdminPage() {
             <tbody className="divide-y divide-gray-100">
               {isLoading ? (
                 <tr>
-                  <td colSpan="6" className="text-center py-10">
-                    <Loading />
-                  </td>
+                  <td colSpan="6" className="text-center py-10"><Loading /></td>
                 </tr>
               ) : isError ? (
                 <tr>
-                  <td colSpan="6" className="text-center py-10">
-                    <Error />
-                  </td>
+                  <td colSpan="6" className="text-center py-10"><Error /></td>
                 </tr>
               ) : (
                 data.data?.map((product) => (
