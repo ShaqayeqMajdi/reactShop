@@ -9,6 +9,8 @@ export default function AdminPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
 
+
+
   return (
     <div className="relative flex gap-8 container mx-auto font-Quicksand selection:bg-Cultured mb-6">
       <button onClick={() => setMenuOpen(true)}
@@ -146,7 +148,7 @@ export default function AdminPage() {
                             Edit
                           </span>
                         </button>
-                        <button onClick={() => { setDeleteModal(true)}}
+                        <button onClick={() => { setDeleteModal(true);}}
                           className="group relative p-2 sm:p-3 bg-Cultured cursor-pointer text-red-500 rounded-xl hover:shadow-md duration-500 hover:bg-red-50">
                           <i className="fa-solid fa-trash text-sm"></i>
                           <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs px-2 py-1 rounded-lg 
