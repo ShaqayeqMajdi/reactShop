@@ -10,9 +10,8 @@ import Electronics from "./features/Home/pages/Electronics";
 import CartPage from "./features/cart/CartPage";
 import AboutPage from "./features/aboutPage/AboutPage";
 import LoginPage from "./features/loginPage/LoginPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 import AdminPage from "./features/admin/AdminPage";
-// import useCategories from "./hooks/useCategories";
-// const categories = useCategories()
 
 const categories = [
   { path: "men", element: <MenPage /> },
@@ -52,12 +51,14 @@ const router = createBrowserRouter([
       },
       {
         path: "admin",
-        element: <AdminPage />,
+        element: <ProtectedRoute />,
+        children: [
+          {
+            index: true,
+            element: <AdminPage />,
+          },
+        ],
       },
-      //   ...categories.map(cat => ({
-      //    path: cat,
-      //    element: <Products category={cat} />,
-      //  })),
       ...categories.map((cat) => ({ path: cat.path, element: cat.element })),
     ],
   },
