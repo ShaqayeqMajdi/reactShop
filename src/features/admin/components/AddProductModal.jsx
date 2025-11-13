@@ -18,13 +18,22 @@ export default function AddProductModal({open,onClose, register, handleSubmit, o
           {/* Form */}
           <form onSubmit={handleSubmit(onSubmit)} className="p-6 space-y-6">
             {/* Image */}
-            <div className="group">
-              <label className="flex flex-col items-center justify-center w-full h-44 border-2 border-dashed border-gray-300 rounded-2xl cursor-pointer bg-Cultured  
-              hover:shadow-lg transition-all duration-300 shadow-md">
-                <p className="text-sm text-gray-700 font-medium mt-20">Click to upload or drag & drop</p>
-                <input type="file" {...register("image")} className="hidden" />
+             <div>
+            <label className="block text-sm font-semibold text-gray-700 mb-3">Product Image</label>
+            <div className="flex items-center gap-4">
+              <div className="w-24 h-24 p-1 rounded-xl overflow-hidden shadow-md border-2 border-dashed border-gray-300">
+                <img src="" alt="product" className="w-full h-full object-contain"/>
+              </div>
+              <label className="flex-1">
+                <div className="flex flex-col items-center justify-center h-24 border-2 border-dashed border-gray-300 rounded-xl 
+                cursor-pointer bg-gray-100 hover:bg-gray-200/80 duration-700">
+                  <p className="text-sm text-gray-700 font-medium">Change Image</p>
+                  <p className="text-xs text-gray-500">PNG, JPG up to 10MB</p>
+                </div>
+                <input type="file" className="hidden" {...register("image")} />
               </label>
             </div>
+          </div>
 
             {/* Product Name */}
             <div>

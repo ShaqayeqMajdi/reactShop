@@ -38,9 +38,11 @@ export default function AdminPage() {
   }
 
   function editSubmit(formData) {
-    editProduct(formData);
+    editProduct(formData).then(() => {
+      reset();
+      setEditModal(false);
+    });
     console.log(formData);
-    setEditModal(false);
   }
 
   async function deleteItem(product) {
@@ -48,11 +50,13 @@ export default function AdminPage() {
   }
 
   function addSubmit(formData) {
-    addProduct(formData);
+    addProduct(formData).then(() => {
+     reset();
+     setAddModal(false);
+    })
     console.log(formData);
-    reset();
-    setAddModal(false);
   }
+  
 
   return (
     <div className="relative flex gap-8 container mx-auto font-Quicksand selection:bg-Cultured mb-6">
@@ -128,7 +132,7 @@ export default function AdminPage() {
       <main className="flex-1 p-4 sm:p-8">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-6">
           <h2 className="text-gray-700 text-3xl font-bold mb-3">Product Management</h2>
-          <button onClick={() => setAddModal(true)} className="px-4 py-2 bg-gray-200 text-gray-600 font-semibold rounded-xl shadow-md hover:shadow-gray-500/50
+          <button onClick={() => {reset(); setAddModal(true)}} className="px-4 py-2 bg-gray-200 text-gray-600 font-semibold rounded-xl shadow-md hover:shadow-gray-500/50
             transition transform hover:-translate-y-0.5 cursor-pointer text-sm sm:text-base">
             + Add New Product
           </button>

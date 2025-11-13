@@ -29,7 +29,7 @@ export default function WomenPage() {
           </svg>
         </div>
         <div className="relative z-10 flex flex-col items-center gap-2 -mt-10">
-          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 drop-shadow-sm">
+          <h1 className="text-4xl md:text-8xl font-bold text-gray-900 drop-shadow-sm">
             Women
           </h1>
           <p className="text-gray-500 flex items-center gap-2 text-sm md:text-base">

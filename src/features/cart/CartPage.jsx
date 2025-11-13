@@ -65,7 +65,6 @@ export default function CartPage() {
       </div>
 
       {/* Order Summary */}
-
       <div className="w-full md:w-[410px] bg-white rounded-2xl border border-gray-200 p-4 md:p-6">
         <h3 className="text-xl font-bold mb-4">Order Summary</h3>
         <div className="flex justify-between text-gray-700 mb-2">

@@ -82,7 +82,7 @@ export default function Header() {
             <li onClick={() => navigate("/allproducts")} className="cursor-pointer relative group hover:text-neutral-600">Products
               <span className="absolute left-0 -bottom-1 h-px w-0 transition-all duration-500 ease-out group-hover:w-full bg-neutral-600"></span>
             </li>
-            <li className="cursor-pointer relative group hover:text-neutral-600">
+            <li onClick={() => navigate("/*")}  className="cursor-pointer relative group hover:text-neutral-600">
               New arrivals
               <span className="absolute left-0 -bottom-1 h-px w-0 transition-all duration-500 ease-out group-hover:w-full bg-neutral-600"></span>
             </li>

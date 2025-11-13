@@ -12,6 +12,7 @@ import AboutPage from "./features/aboutPage/AboutPage";
 import LoginPage from "./features/loginPage/LoginPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminPage from "./features/admin/AdminPage";
+import NotFound from "./features/notFoundPage/NotFound";
 
 const categories = [
   { path: "men", element: <MenPage /> },
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: <LoginPage />,
+      },
+      {
+        path: "*",
+        element: <NotFound />,
       },
       {
         path: "admin",
